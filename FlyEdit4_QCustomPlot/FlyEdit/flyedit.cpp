@@ -404,7 +404,7 @@ void FlyEdit::paraSelectsAndPlot(int row,int col)
 		QSqlQuery query(m_db);
 		QString sqlCmdSelectTable = QString("SELECT *FROM %1").arg(selectItemText);//选择与所选某一复选框对应的数据库表
 		query.exec(sqlCmdSelectTable);
-		//默认已知第一列是时间，第二列是值
+		//注意：默认已知数据库表第0列是时间，第1列是值！！！
 		//QSqlRecord rec = query.record();
 		query.last();
 		int rowCounts = query.at() + 1;//at()返回当前行的索引，索引从0开始；再加1，得到数据库表格列数
@@ -425,6 +425,13 @@ void FlyEdit::paraSelectsAndPlot(int row,int col)
 		}
 		ui.customPlot_paraChecked->addGraph();
 		ui.customPlot_paraChecked->graph()->data()->set(timeAndData);
+		//设置底部坐标轴显示日期时间而不是数字
+		QSharedPointer<QCPAxisTickerDateTime> dateTimeTicker(new QCPAxisTickerDateTime);
+		dateTimeTicker->setDateTimeFormat("yyyy/MM/dd\nHH:mm:ss:zzz");
+		ui.customPlot_paraChecked->xAxis->setTicker(dateTimeTicker);
+
+
+
 		ui.customPlot_paraChecked->graph()->rescaleAxes();
 		// Allow user to drag axis ranges with mouse, zoom with mouse wheel and select graphs by clicking
 		ui.customPlot_paraChecked->setInteractions(QCP::iRangeDrag | QCP::iRangeZoom | QCP::iSelectPlottables);
