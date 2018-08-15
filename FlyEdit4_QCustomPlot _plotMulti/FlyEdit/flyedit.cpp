@@ -25,6 +25,8 @@ FlyEdit::FlyEdit(QWidget *parent)
 	connect(ui.pushButton_ImportExcel, SIGNAL(clicked()), this, SLOT(onImportExcel()));
 	connect(ui.pushButton_ExportToExcel, SIGNAL(clicked()), this, SLOT(onExportToExcel()));
 	
+	connect(ui.customPlot_paraChecked, SIGNAL(mouseDoubleClick(QMouseEvent*)), this, SLOT(mouseDoubleToRescaleAxes()));
+
 	/*m_db = QSqlDatabase::addDatabase("QMYSQL");
 	m_model = new QSqlTableModel(this, m_db);
 	m_paraListmodel = new QSqlTableModel(this, m_db);
@@ -50,9 +52,10 @@ FlyEdit::FlyEdit(QWidget *parent)
 	//setupTreeView();//调试完需释放！！！！！
 
 	setupTableWidget();
+	///int m_graphNumber = -1;
 	//-------初始化tableWidget之后，才能去绑定下面的信号槽函数，不然从数据库往tableWidget里一写内容就会触发信号！！！-------//
-	connect(ui.tableWidget_paraListCheck, SIGNAL(cellChanged(int, int)), this, SLOT(paraSelectsAndPlot(int, int)));//
-
+	connect(ui.tableWidget_paraListCheck, SIGNAL(cellChanged(int, int)), this, SLOT(setParaSelectsAndPlot()));//
+	//connect(ui.customPlot_paraChecked, SIGNAL(mouseDoubleClick(QMouseEvent)), this, SLOT(mouseDoubleToRescaleAxes()));
 }
 
 FlyEdit::~FlyEdit()
@@ -89,6 +92,9 @@ void FlyEdit::setupTreeView()
 //从Excel导入所有参数数据（包含参数总表sheet和每个参数的sheet）
 void FlyEdit::onImportExcel()
 {
+	QTime time1;
+	time1.start();
+
 	QString excelFileName = QFileDialog::getOpenFileName(this, tr("选择Excel文件"), m_path, tr("Excel 工作簿(*.xlsx);;Excel 97-2003 工作簿(*.xls)"));
 	if (excelFileName == "")
 	{
@@ -116,10 +122,12 @@ void FlyEdit::onImportExcel()
 		QString oldTableName = oldTableNames.value(i);
 		QString sqlCmdDeleteOldTable = QString("DROP TABLE %1").arg(oldTableName);
 		query2.exec(sqlCmdDeleteOldTable);
-		error = query2.lastError().databaseText();
+		//error = query2.lastError().databaseText();
 	}
 	
-	//---------------------从Excel读sheet，创建数据库表--------------------//
+	qDebug() << time1.elapsed() / 1000.0 << "s";
+
+	    //-------------------从Excel读sheet，创建数据库表--------------------//
 	QXlsx::Document xlsx(excelFileName);
 	QStringList sheetNames = xlsx.sheetNames();//Excel文件各sheet表名；sheet个数，从0开始
 	int sheetNumber = sheetNames.size();//sheet个数，从0开始
@@ -144,13 +152,16 @@ void FlyEdit::onImportExcel()
 		sqlCmdCreateTable = QString("CREATE TABLE %1(%2)").arg(shName).arg(fieldNameAndTypes);
 		query2.exec(sqlCmdCreateTable);
 		//QString error = query2.lastError().databaseText();
-		//-----------将Excel内容写入数据库----------//
+
+		qDebug() << time1.elapsed() / 1000.0 << "s";
+
+		//----------------------将Excel内容写入数据库------------------------//
 		//一行一行地读和写
 		for (int ir = 2; ir < rowCounts + 1; ++ir)
 		{
 			QString rowFieldValues = "\"";
 			QString sqlCmdInsertRowFieldValues;
-			//将每行的各列拼为一个QStringList，便于往数据库表中写
+			//将每行的各列拼为一个QString，便于往数据库表中写
 			for (int ic = 1; ic < colCounts + 1; ++ic)
 			{
 				QString fieldValue = xlsx.read(ir, ic).toString();
@@ -163,8 +174,11 @@ void FlyEdit::onImportExcel()
 			query2.exec(sqlCmdInsertRowFieldValues);
 			error = query2.lastError().databaseText();
 		}
+
+		qDebug() << time1.elapsed() / 1000.0 << "s";
 	}
 
+	qDebug() << time1.elapsed() / 1000.0 << "s";
 	
 	if (error.isEmpty())
 	{
@@ -174,6 +188,8 @@ void FlyEdit::onImportExcel()
 		msgBox.exec();*/
 		QMessageBox::information(this, QStringLiteral("提示"), "数据导入成功！", QMessageBox::Yes);
 	}
+
+	qDebug() << time1.elapsed() / 1000.0 << "s";
 
 }
 
@@ -360,7 +376,7 @@ void FlyEdit::setupTableWidget()
 	QSqlRecord rec = query.record();
 	int colCounts = rec.count();//得到一条记录的count，即数据库表格列数，即字段数
 	query.last();
-	int rowCounts = query.at() + 1;//at()返回当前行的索引，索引从0开始；再加1，得到数据库表格列数
+	int rowCounts = query.at() + 1;//at()返回当前行的索引，索引从0开始；再加1，得到数据库表格行数
 	ui.tableWidget_paraListCheck->setColumnCount(colCounts+1);//tableWidget多加一列来插入复选框，这一列计划设计在第0列
 	ui.tableWidget_paraListCheck->setRowCount(rowCounts);
 	//读取数据库表paralist的内容，往tableWidget中写。默认已知数据库表paralist的列数及各列含义，并隐藏第1、2列
@@ -394,69 +410,119 @@ void FlyEdit::setupTableWidget()
 	
 }
 
-//在tableWidget中点复选框选择参数，在qCustomPlot中绘制所选参数的曲线
-void FlyEdit::paraSelectsAndPlot(int row,int col)
+void FlyEdit::setParaSelectsAndPlot()
 {
-	QString selectItemText = ui.tableWidget_paraListCheck->item(row, 2)->text();//得到tableWidget第2列的内容，即参数英文名，也即数据库表名
+	///QString selectItemText = ui.tableWidget_paraListCheck->item(row, 2)->text();//得到tableWidget第2列的内容，即参数英文名，也即数据库表名
+	///int graphNumber = -1;
+	ui.customPlot_paraChecked->clearGraphs();
+	paraSelectsAndPlot();
+	ui.customPlot_paraChecked->replot();
+}
+
+
+
+//在tableWidget中点复选框选择参数，在qCustomPlot中绘制所选参数的曲线
+void FlyEdit::paraSelectsAndPlot()
+{
+	////QString selectItemText = ui.tableWidget_paraListCheck->item(row, 2)->text();//得到tableWidget第2列的内容，即参数英文名，也即数据库表名
 	///QString graphName = "graph_" + selectItemText;
 	//QCPGraph *
 	///ui.customPlot_paraChecked->addGraph();
 	///int graphNumber = -1;
+	QSqlQuery query(m_db);
+	QString sqlCmdReadTableParalist = "SELECT *FROM paralist";
+	query.exec(sqlCmdReadTableParalist);
+	query.last();
+	int paraRowCounts = query.at() + 1;//at()返回当前行的索引，索引从0开始；再加1，得到数据库表格行数
 
-	//先判断是否是“选中”操作。因为有可能是“取消选择”或其他操作！！！
-	if (ui.tableWidget_paraListCheck->item(row, col)->checkState() == Qt::Checked)
+	QPen pen;
+	for (int row = 0; row < paraRowCounts; ++row)
 	{
-		//QTableWidgetItem *item = ui.tableWidget_paraListCheck->item(row, 2);
-		///QString selectItemText = ui.tableWidget_paraListCheck->item(row, 2)->text();//得到tableWidget第2列的内容，即参数英文名，也即数据库表名
-		QSqlQuery query(m_db);
-		QString sqlCmdSelectTable = QString("SELECT *FROM %1").arg(selectItemText);//选择与所选某一复选框对应的数据库表
-		query.exec(sqlCmdSelectTable);
-		//注意：默认已知数据库表第0列是时间，第1列是值！！！
-		//QSqlRecord rec = query.record();
-		bool queryTorF = query.last();
-		int rowCounts = query.at() + 1;//at()返回当前行的索引，索引从0开始；再加1，得到数据库表格列数
-		if (queryTorF==false&&rowCounts==-1)
-		{
-			QMessageBox::information(this, QStringLiteral("提示"), "该参数目前没有数据", QMessageBox::Yes);
-			return;
-		}
-		ui.customPlot_paraChecked->addGraph();
-		m_graphNumber = m_graphNumber + 1;
-		QVector<QCPGraphData> timeAndData(rowCounts);//QCPGraphData(double key,double value)
-		query.exec(sqlCmdSelectTable);
-		int i = 0;
-		QString format = "yyyy/MM/dd-HH:mm:ss:zzz";
-		while (query.next())
-		{
-			QString sDateTimeFromSql = query.value(0).toString();
-			QDateTime dDateTimeFromSqlString = QDateTime::fromString(sDateTimeFromSql, format);
-			double dateTime = dDateTimeFromSqlString.toMSecsSinceEpoch()/1000.0;//转换为了单位为S，精度为ms的 时间戳？
-			timeAndData[i].key = dateTime;
-			QString sDataFromSql = query.value(1).toString();
-			double data = sDataFromSql.toDouble();
-			timeAndData[i].value = data;
-			i = i + 1;
-		}
-		///ui.customPlot_paraChecked->addGraph();
-		ui.customPlot_paraChecked->graph(m_graphNumber)->data()->set(timeAndData);
-		//设置底部坐标轴显示日期时间而不是数字
-		QSharedPointer<QCPAxisTickerDateTime> dateTimeTicker(new QCPAxisTickerDateTime);
-		dateTimeTicker->setDateTimeFormat("yyyy/MM/dd\nHH:mm:ss:zzz");
-		ui.customPlot_paraChecked->xAxis->setTicker(dateTimeTicker);
 
-		ui.customPlot_paraChecked->graph(m_graphNumber)->rescaleAxes();
-		// Allow user to drag axis ranges with mouse, zoom with mouse wheel and select graphs by clicking
-		ui.customPlot_paraChecked->setInteractions(QCP::iRangeDrag | QCP::iRangeZoom | QCP::iSelectPlottables);
-		
-		///ui.customPlot_paraChecked->replot();
+		//先判断是否是“选中”操作。因为有可能是“取消选择”或其他操作！！！
+		if (ui.tableWidget_paraListCheck->item(row, 0)->checkState() == Qt::Checked)
+		{
+			//QTableWidgetItem *item = ui.tableWidget_paraListCheck->item(row, 2);
+			QString selectItemText = ui.tableWidget_paraListCheck->item(row, 2)->text();//得到tableWidget第2列的内容，即参数英文名，也即数据库表名
+			QSqlQuery query(m_db);
+			QString sqlCmdSelectTable = QString("SELECT *FROM %1").arg(selectItemText);//选择与所选某一复选框对应的数据库表
+			query.exec(sqlCmdSelectTable);
+			//注意：默认已知数据库表第0列是时间，第1列是值！！！
+			//QSqlRecord rec = query.record();
+			bool queryTorF = query.last();
+			int rowCounts = query.at() + 1;//at()返回当前行的索引，索引从0开始；再加1，得到数据库表格列数
+			if (queryTorF == false && rowCounts == -1)
+			{
+				QMessageBox::information(this, QStringLiteral("提示"), "该参数目前没有数据", QMessageBox::Yes);
+				return;
+			}
+			ui.customPlot_paraChecked->addGraph();
+			pen.setColor(QColor(qSin(row*0.3) * 100 + 100, qSin(row*0.6 + 0.7) * 100 + 100, qSin(row*0.4 + 0.6) * 100 + 100));
+			ui.customPlot_paraChecked->graph()->setPen(pen);
+			ui.customPlot_paraChecked->graph()->setName(selectItemText);
 
+			///m_graphNumber = m_graphNumber + 1;
+			QVector<QCPGraphData> timeAndData(rowCounts);//QCPGraphData(double key,double value)
+			query.exec(sqlCmdSelectTable);
+			int i = 0;
+			QString format = "yyyy/MM/dd-HH:mm:ss:zzz";
+			while (query.next())
+			{
+				QString sDateTimeFromSql = query.value(0).toString();
+				QDateTime dDateTimeFromSqlString = QDateTime::fromString(sDateTimeFromSql, format);
+				double dateTime = dDateTimeFromSqlString.toMSecsSinceEpoch() / 1000.0;//转换为了单位为S，精度为ms的 时间戳？
+				timeAndData[i].key = dateTime;
+				QString sDataFromSql = query.value(1).toString();
+				double data = sDataFromSql.toDouble();
+				timeAndData[i].value = data;
+				i = i + 1;
+			}
+			///ui.customPlot_paraChecked->addGraph();
+			
+			ui.customPlot_paraChecked->graph()->data()->set(timeAndData);
+			ui.customPlot_paraChecked->graph()->rescaleAxes(true);
+			/*
+			//设置底部坐标轴显示日期时间而不是数字
+			QSharedPointer<QCPAxisTickerDateTime> dateTimeTicker(new QCPAxisTickerDateTime);
+			dateTimeTicker->setDateTimeFormat("yyyy/MM/dd\nHH:mm:ss:zzz");
+			ui.customPlot_paraChecked->xAxis->setTicker(dateTimeTicker);
+
+			
+			// Allow user to drag axis ranges with mouse, zoom with mouse wheel and select graphs by clicking
+			ui.customPlot_paraChecked->setInteractions(QCP::iRangeDrag | QCP::iRangeZoom | QCP::iSelectPlottables);
+
+			///ui.customPlot_paraChecked->replot();
+			*/
+		}
+
+		else
+		{
+		//	//ui.customPlot_paraChecked->graph(m_graphNumber)->data()->clear();//如果是取消选择操作，则删除该曲线
+		//	//ui.customPlot_paraChecked->removeGraph(m_graphNumber);
+		//	///ui.customPlot_paraChecked->replot();
+		//	return;
+			continue;
+		}
+
+		////ui.customPlot_paraChecked->graph()->rescaleAxes();
+		//// Allow user to drag axis ranges with mouse, zoom with mouse wheel and select graphs by clicking
+		//ui.customPlot_paraChecked->setInteractions(QCP::iRangeDrag | QCP::iRangeZoom | QCP::iSelectPlottables);
+	
 	}
-	else
-	{
-		ui.customPlot_paraChecked->graph(m_graphNumber)->data()->clear();//如果是取消选择操作，则删除该曲线
-		///ui.customPlot_paraChecked->replot();
-		return;
-	}
+	ui.customPlot_paraChecked->rescaleAxes();
+	ui.customPlot_paraChecked->legend->setVisible(true);
+	//设置底部坐标轴显示日期时间而不是数字
+	QSharedPointer<QCPAxisTickerDateTime> dateTimeTicker(new QCPAxisTickerDateTime);
+	dateTimeTicker->setDateTimeFormat("yyyy/MM/dd\nHH:mm:ss:zzz");
+	ui.customPlot_paraChecked->xAxis->setTicker(dateTimeTicker);
+	ui.customPlot_paraChecked->xAxis->setTickLabelRotation(30);
+	//ui.customPlot_paraChecked->axisRect()->setupFullAxesBox();//四个刻度边线都调出来：除了下横轴和左纵轴刻度边线，还调出来了上横轴和右纵轴的刻度边线
+	ui.customPlot_paraChecked->setInteractions(QCP::iRangeDrag | QCP::iRangeZoom | QCP::iSelectPlottables);
+	///ui.customPlot_paraChecked->replot();
+
+}
+void FlyEdit::mouseDoubleToRescaleAxes()
+{
+	ui.customPlot_paraChecked->rescaleAxes();
 	ui.customPlot_paraChecked->replot();
-
 }

@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1219</width>
+    <width>1302</width>
     <height>817</height>
    </rect>
   </property>
@@ -160,9 +160,9 @@
    <widget class="QGroupBox" name="groupBox_3">
     <property name="geometry">
      <rect>
-      <x>270</x>
+      <x>260</x>
       <y>60</y>
-      <width>291</width>
+      <width>271</width>
       <height>551</height>
      </rect>
     </property>
@@ -174,7 +174,7 @@
       <rect>
        <x>10</x>
        <y>20</y>
-       <width>271</width>
+       <width>251</width>
        <height>511</height>
       </rect>
      </property>
@@ -192,7 +192,7 @@
    <widget class="QTableWidget" name="tableWidget_paraListCheck">
     <property name="geometry">
      <rect>
-      <x>580</x>
+      <x>550</x>
       <y>80</y>
       <width>161</width>
       <height>511</height>
@@ -202,10 +202,10 @@
    <widget class="QCustomPlot" name="customPlot_paraChecked" native="true">
     <property name="geometry">
      <rect>
-      <x>760</x>
-      <y>140</y>
-      <width>441</width>
-      <height>391</height>
+      <x>730</x>
+      <y>80</y>
+      <width>561</width>
+      <height>511</height>
      </rect>
     </property>
    </widget>
@@ -225,7 +225,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1219</width>
+     <width>1302</width>
      <height>23</height>
     </rect>
    </property>

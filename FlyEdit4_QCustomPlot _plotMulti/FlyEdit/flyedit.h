@@ -31,6 +31,8 @@ private:
 	//QString m_dataBasePathName;
 	void setupTableWidget();
 	int m_graphNumber;
+	void paraSelectsAndPlot();
+
 
 private:
 	Ui::FlyEditClass ui;
@@ -44,7 +46,8 @@ private slots:
 	void paraSelectAndShow();
 	void onImportExcel();
 	void onExportToExcel();
-	void paraSelectsAndPlot(int row,int col);
+	void setParaSelectsAndPlot();
+	void mouseDoubleToRescaleAxes();
 };
 
 #endif // FLYEDIT_H

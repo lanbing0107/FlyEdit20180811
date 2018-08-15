@@ -56,7 +56,7 @@ public:
     {
         if (FlyEditClass->objectName().isEmpty())
             FlyEditClass->setObjectName(QStringLiteral("FlyEditClass"));
-        FlyEditClass->resize(1219, 817);
+        FlyEditClass->resize(1302, 817);
         centralWidget = new QWidget(FlyEditClass);
         centralWidget->setObjectName(QStringLiteral("centralWidget"));
         pushButton_Submit = new QPushButton(centralWidget);
@@ -95,10 +95,10 @@ public:
         treeView_paraList->setGeometry(QRect(11, 21, 189, 509));
         groupBox_3 = new QGroupBox(centralWidget);
         groupBox_3->setObjectName(QStringLiteral("groupBox_3"));
-        groupBox_3->setGeometry(QRect(270, 60, 291, 551));
+        groupBox_3->setGeometry(QRect(260, 60, 271, 551));
         tableView_Para1 = new QTableView(groupBox_3);
         tableView_Para1->setObjectName(QStringLiteral("tableView_Para1"));
-        tableView_Para1->setGeometry(QRect(10, 20, 271, 511));
+        tableView_Para1->setGeometry(QRect(10, 20, 251, 511));
         QSizePolicy sizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
         sizePolicy.setHorizontalStretch(0);
         sizePolicy.setVerticalStretch(0);
@@ -107,10 +107,10 @@ public:
         tableView_Para1->setDragEnabled(false);
         tableWidget_paraListCheck = new QTableWidget(centralWidget);
         tableWidget_paraListCheck->setObjectName(QStringLiteral("tableWidget_paraListCheck"));
-        tableWidget_paraListCheck->setGeometry(QRect(580, 80, 161, 511));
+        tableWidget_paraListCheck->setGeometry(QRect(550, 80, 161, 511));
         customPlot_paraChecked = new QCustomPlot(centralWidget);
         customPlot_paraChecked->setObjectName(QStringLiteral("customPlot_paraChecked"));
-        customPlot_paraChecked->setGeometry(QRect(760, 140, 441, 391));
+        customPlot_paraChecked->setGeometry(QRect(730, 80, 561, 511));
         FlyEditClass->setCentralWidget(centralWidget);
         groupBox_3->raise();
         pushButton_Submit->raise();
@@ -124,7 +124,7 @@ public:
         customPlot_paraChecked->raise();
         menuBar = new QMenuBar(FlyEditClass);
         menuBar->setObjectName(QStringLiteral("menuBar"));
-        menuBar->setGeometry(QRect(0, 0, 1219, 23));
+        menuBar->setGeometry(QRect(0, 0, 1302, 23));
         FlyEditClass->setMenuBar(menuBar);
         mainToolBar = new QToolBar(FlyEditClass);
         mainToolBar->setObjectName(QStringLiteral("mainToolBar"));
