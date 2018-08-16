@@ -314,6 +314,11 @@ void FlyEdit::onExportToExcel()
 	{
 		return;
 	}
+
+	QTime time2;
+	time2.start();
+
+
 	QFile::remove(saveExcelFileName);
 	QXlsx::Document xlsx(saveExcelFileName);
 	//xlsx.save();//调试用
@@ -329,6 +334,9 @@ void FlyEdit::onExportToExcel()
 		xlsx.addSheet(query.value(0).toString());
 	}
 	xlsx.deleteSheet("sheet1");//因为新创建的Excel文件默认有一个名字为”sheet1“的sheet
+
+	qDebug() << time2.elapsed() / 1000.0 << "s";
+
 	for (int i = 0; i < tableNames.size(); ++i) 
 	{
 		//也可以使用QSqlRecord来实现，QSqlField
@@ -359,12 +367,20 @@ void FlyEdit::onExportToExcel()
 			nRowCount++;
 		}
 	}
+
+	qDebug() << time2.elapsed() / 1000.0 << "s";
+
 	xlsx.save();
+
+	qDebug() << time2.elapsed() / 1000.0 << "s";
+
 	if (error.isEmpty())
 	{
 		QMessageBox::information(this, QStringLiteral("提示"), "数据导出成功！", QMessageBox::Yes);
 	}
 	
+	qDebug() << time2.elapsed() / 1000.0 << "s";
+
 }
 
 //初始化tableWidget，显示参数和复选框
@@ -427,7 +443,6 @@ void FlyEdit::paraSelectsAndPlot()
 	////QString selectItemText = ui.tableWidget_paraListCheck->item(row, 2)->text();//得到tableWidget第2列的内容，即参数英文名，也即数据库表名
 	///QString graphName = "graph_" + selectItemText;
 	//QCPGraph *
-	///ui.customPlot_paraChecked->addGraph();
 	///int graphNumber = -1;
 	QSqlQuery query(m_db);
 	QString sqlCmdReadTableParalist = "SELECT *FROM paralist";
@@ -445,6 +460,13 @@ void FlyEdit::paraSelectsAndPlot()
 			//QTableWidgetItem *item = ui.tableWidget_paraListCheck->item(row, 2);
 			QString selectItemText = ui.tableWidget_paraListCheck->item(row, 2)->text();//得到tableWidget第2列的内容，即参数英文名，也即数据库表名
 			QSqlQuery query(m_db);
+
+			//测试得到数据库表x的行数的语句。可用！ 
+			/*QString sqlCmd = "SELECT count(*) FROM x";
+			query.exec(sqlCmd);
+			query.next();
+			int rowCountsDirectly = query.value(0).toInt();*/
+
 			QString sqlCmdSelectTable = QString("SELECT *FROM %1").arg(selectItemText);//选择与所选某一复选框对应的数据库表
 			query.exec(sqlCmdSelectTable);
 			//注意：默认已知数据库表第0列是时间，第1列是值！！！
@@ -457,12 +479,13 @@ void FlyEdit::paraSelectsAndPlot()
 				return;
 			}
 			ui.customPlot_paraChecked->addGraph();
-			pen.setColor(QColor(qSin(row*0.3) * 100 + 100, qSin(row*0.6 + 0.7) * 100 + 100, qSin(row*0.4 + 0.6) * 100 + 100));
+			pen.setColor(QColor(qSin(row*0.3) * 100 + 100, qSin(row*0.6 + 0.7) * 100 + 100, qSin(row*0.4 + 0.6) * 100 + 100));//设置每条参数曲线的颜色值
 			ui.customPlot_paraChecked->graph()->setPen(pen);
 			ui.customPlot_paraChecked->graph()->setName(selectItemText);
 
 			///m_graphNumber = m_graphNumber + 1;
 			QVector<QCPGraphData> timeAndData(rowCounts);//QCPGraphData(double key,double value)
+			QVector<double> dataForSort(rowCounts);
 			query.exec(sqlCmdSelectTable);
 			int i = 0;
 			QString format = "yyyy/MM/dd-HH:mm:ss:zzz";
@@ -475,39 +498,36 @@ void FlyEdit::paraSelectsAndPlot()
 				QString sDataFromSql = query.value(1).toString();
 				double data = sDataFromSql.toDouble();
 				timeAndData[i].value = data;
+				dataForSort[i] = data;
 				i = i + 1;
 			}
-			///ui.customPlot_paraChecked->addGraph();
 			
+			//QVector<QCPGraphData> sortData(rowCounts), timeAndDataValueToOne(rowCounts);//sortData用于排序，从而得到timeAndData中value的绝对值最大者
+			//sortData.swap(timeAndData); 
+			
+			qSort(dataForSort.begin(), dataForSort.end());
+			double minData = dataForSort.at(0);
+			double maxData = dataForSort.at(rowCounts - 1);
+			double MinDataAbs = qAbs(minData);
+			double MaxDataAbs = qAbs(maxData);
+
+			double absMax = qMax(MinDataAbs, MaxDataAbs);
+			for (int j = 0; j < rowCounts; ++j)
+			{
+				timeAndData[j].value = timeAndData[j].value / absMax;
+			}
+
 			ui.customPlot_paraChecked->graph()->data()->set(timeAndData);
 			ui.customPlot_paraChecked->graph()->rescaleAxes(true);
-			/*
-			//设置底部坐标轴显示日期时间而不是数字
-			QSharedPointer<QCPAxisTickerDateTime> dateTimeTicker(new QCPAxisTickerDateTime);
-			dateTimeTicker->setDateTimeFormat("yyyy/MM/dd\nHH:mm:ss:zzz");
-			ui.customPlot_paraChecked->xAxis->setTicker(dateTimeTicker);
 
-			
-			// Allow user to drag axis ranges with mouse, zoom with mouse wheel and select graphs by clicking
-			ui.customPlot_paraChecked->setInteractions(QCP::iRangeDrag | QCP::iRangeZoom | QCP::iSelectPlottables);
-
-			///ui.customPlot_paraChecked->replot();
-			*/
 		}
 
 		else
 		{
 		//	//ui.customPlot_paraChecked->graph(m_graphNumber)->data()->clear();//如果是取消选择操作，则删除该曲线
 		//	//ui.customPlot_paraChecked->removeGraph(m_graphNumber);
-		//	///ui.customPlot_paraChecked->replot();
-		//	return;
 			continue;
 		}
-
-		////ui.customPlot_paraChecked->graph()->rescaleAxes();
-		//// Allow user to drag axis ranges with mouse, zoom with mouse wheel and select graphs by clicking
-		//ui.customPlot_paraChecked->setInteractions(QCP::iRangeDrag | QCP::iRangeZoom | QCP::iSelectPlottables);
-	
 	}
 	ui.customPlot_paraChecked->rescaleAxes();
 	ui.customPlot_paraChecked->legend->setVisible(true);
@@ -517,8 +537,8 @@ void FlyEdit::paraSelectsAndPlot()
 	ui.customPlot_paraChecked->xAxis->setTicker(dateTimeTicker);
 	ui.customPlot_paraChecked->xAxis->setTickLabelRotation(30);
 	//ui.customPlot_paraChecked->axisRect()->setupFullAxesBox();//四个刻度边线都调出来：除了下横轴和左纵轴刻度边线，还调出来了上横轴和右纵轴的刻度边线
+	// Allow user to drag axis ranges with mouse, zoom with mouse wheel and select graphs by clicking
 	ui.customPlot_paraChecked->setInteractions(QCP::iRangeDrag | QCP::iRangeZoom | QCP::iSelectPlottables);
-	///ui.customPlot_paraChecked->replot();
 
 }
 void FlyEdit::mouseDoubleToRescaleAxes()

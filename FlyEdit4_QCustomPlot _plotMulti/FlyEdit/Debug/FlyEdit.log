@@ -1,13 +1,8 @@
-﻿生成启动时间为 2018/8/15 17:18:59。
+﻿生成启动时间为 2018/8/16 14:36:36。
      1>项目“F:\工作201808_飞行包编辑\飞行包编辑_V0.0.2.180809_Alpha\FlyEdit20180811\FlyEdit4_QCustomPlot _plotMulti\FlyEdit\FlyEdit.vcxproj”在节点 2 上(Build 个目标)。
-     1>CustomBuild:
-         Moc'ing flyedit.h...
-       ClCompile:
-         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /I.\GeneratedFiles /I. /IC:\Qt\Qt5.7.0\5.7\msvc2013\include /I.\GeneratedFiles\Debug /IC:\Qt\Qt5.7.0\5.7\msvc2013\include\QtCore /IC:\Qt\Qt5.7.0\5.7\msvc2013\include\QtGui /IC:\Qt\Qt5.7.0\5.7\msvc2013\include\QtSql /IC:\Qt\Qt5.7.0\5.7\msvc2013\include\QtWidgets /IC:\Qt\Qt5.7.0\5.7\msvc2013\include\QtXlsx /IC:\Qt\Qt5.7.0\5.7\msvc2013\include\QtPrintSupport /Zi /nologo /W1 /WX- /Od /Oy- /D UNICODE /D WIN32 /D WIN64 /D QT_DLL /D QT_CORE_LIB /D QT_GUI_LIB /D QT_SQL_LIB /D QT_WIDGETS_LIB /D QT_PRINTSUPPORT_LIB /Gm- /EHsc /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt GeneratedFiles\Debug\moc_flyedit.cpp flyedit.cpp main.cpp
-         moc_flyedit.cpp
+     1>ClCompile:
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /I.\GeneratedFiles /I. /IC:\Qt\Qt5.7.0\5.7\msvc2013\include /I.\GeneratedFiles\Debug /IC:\Qt\Qt5.7.0\5.7\msvc2013\include\QtCore /IC:\Qt\Qt5.7.0\5.7\msvc2013\include\QtGui /IC:\Qt\Qt5.7.0\5.7\msvc2013\include\QtSql /IC:\Qt\Qt5.7.0\5.7\msvc2013\include\QtWidgets /IC:\Qt\Qt5.7.0\5.7\msvc2013\include\QtXlsx /IC:\Qt\Qt5.7.0\5.7\msvc2013\include\QtPrintSupport /Zi /nologo /W1 /WX- /Od /Oy- /D UNICODE /D WIN32 /D WIN64 /D QT_DLL /D QT_CORE_LIB /D QT_GUI_LIB /D QT_SQL_LIB /D QT_WIDGETS_LIB /D QT_PRINTSUPPORT_LIB /Gm- /EHsc /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt flyedit.cpp
          flyedit.cpp
-         main.cpp
-         正在生成代码...
        Link:
          C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"F:\工作201808_飞行包编辑\飞行包编辑_V0.0.2.180809_Alpha\FlyEdit20180811\FlyEdit4_QCustomPlot _plotMulti\Win32\Debug\\FlyEdit.exe" /NOLOGO /LIBPATH:C:\Qt\Qt5.7.0\5.7\msvc2013\lib qtmaind.lib Qt5Cored.lib Qt5Guid.lib Qt5Sqld.lib Qt5Widgetsd.lib Qt5Xlsxd.lib Qt5PrintSupportd.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"F:\工作201808_飞行包编辑\飞行包编辑_V0.0.2.180809_Alpha\FlyEdit20180811\FlyEdit4_QCustomPlot _plotMulti\Win32\Debug\FlyEdit.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"F:\工作201808_飞行包编辑\飞行包编辑_V0.0.2.180809_Alpha\FlyEdit20180811\FlyEdit4_QCustomPlot _plotMulti\Win32\Debug\FlyEdit.lib" /MACHINE:X86 /SAFESEH Debug\flyedit.obj
          Debug\moc_flyedit.obj
@@ -20,4 +15,4 @@
 
 生成成功。
 
-已用时间 00:00:18.77
+已用时间 00:00:08.94
