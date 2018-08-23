@@ -1,0 +1,38 @@
+﻿生成启动时间为 2018/8/23 17:13:05。
+     1>项目“F:\工作201808_飞行包编辑\飞行包编辑_V0.0.2.180809_Alpha\FlyEdit20180811\FlyEdit4_FaBu\FlyEdit\FlyEdit.vcxproj”在节点 2 上(Build 个目标)。
+     1>ClCompile:
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /I.\GeneratedFiles /I. /IC:\Qt\Qt5.7.0\5.7\msvc2013\include /I.\GeneratedFiles\Debug /IC:\Qt\Qt5.7.0\5.7\msvc2013\include\QtCore /IC:\Qt\Qt5.7.0\5.7\msvc2013\include\QtGui /IC:\Qt\Qt5.7.0\5.7\msvc2013\include\QtSql /IC:\Qt\Qt5.7.0\5.7\msvc2013\include\QtWidgets /IC:\Qt\Qt5.7.0\5.7\msvc2013\include\QtXlsx /IC:\Qt\Qt5.7.0\5.7\msvc2013\include\QtPrintSupport /Zi /nologo /W1 /WX- /Od /Oy- /D UNICODE /D WIN32 /D WIN64 /D QT_DLL /D QT_CORE_LIB /D QT_GUI_LIB /D QT_SQL_LIB /D QT_WIDGETS_LIB /D QT_PRINTSUPPORT_LIB /Gm- /EHsc /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt GeneratedFiles\Debug\moc_flyedit.cpp flyedit.cpp main.cpp
+         moc_flyedit.cpp
+         flyedit.cpp
+         main.cpp
+         正在生成代码...
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /I.\GeneratedFiles /I. /IC:\Qt\Qt5.7.0\5.7\msvc2013\include /I.\GeneratedFiles\Debug /IC:\Qt\Qt5.7.0\5.7\msvc2013\include\QtCore /IC:\Qt\Qt5.7.0\5.7\msvc2013\include\QtGui /IC:\Qt\Qt5.7.0\5.7\msvc2013\include\QtSql /IC:\Qt\Qt5.7.0\5.7\msvc2013\include\QtWidgets /IC:\Qt\Qt5.7.0\5.7\msvc2013\include\QtXlsx /IC:\Qt\Qt5.7.0\5.7\msvc2013\include\QtPrintSupport /Zi /nologo /W1 /WX- /Od /Oy- /D UNICODE /D WIN32 /D WIN64 /D QT_DLL /D QT_CORE_LIB /D QT_GUI_LIB /D QT_SQL_LIB /D QT_WIDGETS_LIB /D QT_PRINTSUPPORT_LIB /Gm- /EHsc /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt GeneratedFiles\qrc_flyedit.cpp
+         qrc_flyedit.cpp
+       Link:
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"F:\工作201808_飞行包编辑\飞行包编辑_V0.0.2.180809_Alpha\FlyEdit20180811\FlyEdit4_FaBu\Win32\Debug\\FlyEdit.exe" /NOLOGO /LIBPATH:C:\Qt\Qt5.7.0\5.7\msvc2013\lib qtmaind.lib Qt5Cored.lib Qt5Guid.lib Qt5Sqld.lib Qt5Widgetsd.lib Qt5PrintSupportd.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"F:\工作201808_飞行包编辑\飞行包编辑_V0.0.2.180809_Alpha\FlyEdit20180811\FlyEdit4_FaBu\Win32\Debug\FlyEdit.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"F:\工作201808_飞行包编辑\飞行包编辑_V0.0.2.180809_Alpha\FlyEdit20180811\FlyEdit4_FaBu\Win32\Debug\FlyEdit.lib" /MACHINE:X86 /SAFESEH Debug\flyedit.obj
+         Debug\moc_flyedit.obj
+         Debug\moc_qcustomplot.obj
+         Debug\qrc_flyedit.obj
+         Debug\main.obj
+         Debug\qcustomplot.obj
+     1>flyedit.obj : error LNK2019: 无法解析的外部符号 "__declspec(dllimport) public: __thiscall QXlsx::Format::Format(void)" (__imp_??0Format@QXlsx@@QAE@XZ)，该符号在函数 "private: void __thiscall FlyEdit::onExportToExcel(void)" (?onExportToExcel@FlyEdit@@AAEXXZ) 中被引用
+     1>flyedit.obj : error LNK2019: 无法解析的外部符号 "__declspec(dllimport) public: __thiscall QXlsx::Format::~Format(void)" (__imp_??1Format@QXlsx@@QAE@XZ)，该符号在函数 "private: void __thiscall FlyEdit::onExportToExcel(void)" (?onExportToExcel@FlyEdit@@AAEXXZ) 中被引用
+     1>flyedit.obj : error LNK2019: 无法解析的外部符号 "__declspec(dllimport) public: __thiscall QXlsx::CellRange::~CellRange(void)" (__imp_??1CellRange@QXlsx@@QAE@XZ)，该符号在函数 "private: void __thiscall FlyEdit::onImportExcel(void)" (?onImportExcel@FlyEdit@@AAEXXZ) 中被引用
+     1>flyedit.obj : error LNK2019: 无法解析的外部符号 "__declspec(dllimport) public: int __thiscall QXlsx::CellRange::lastRow(void)const " (__imp_?lastRow@CellRange@QXlsx@@QBEHXZ)，该符号在函数 "private: void __thiscall FlyEdit::onImportExcel(void)" (?onImportExcel@FlyEdit@@AAEXXZ) 中被引用
+     1>flyedit.obj : error LNK2019: 无法解析的外部符号 "__declspec(dllimport) public: int __thiscall QXlsx::CellRange::lastColumn(void)const " (__imp_?lastColumn@CellRange@QXlsx@@QBEHXZ)，该符号在函数 "private: void __thiscall FlyEdit::onImportExcel(void)" (?onImportExcel@FlyEdit@@AAEXXZ) 中被引用
+     1>flyedit.obj : error LNK2019: 无法解析的外部符号 "__declspec(dllimport) public: __thiscall QXlsx::Document::Document(class QString const &,class QObject *)" (__imp_??0Document@QXlsx@@QAE@ABVQString@@PAVQObject@@@Z)，该符号在函数 "private: void __thiscall FlyEdit::onImportExcel(void)" (?onImportExcel@FlyEdit@@AAEXXZ) 中被引用
+     1>flyedit.obj : error LNK2019: 无法解析的外部符号 "__declspec(dllimport) public: virtual __thiscall QXlsx::Document::~Document(void)" (__imp_??1Document@QXlsx@@UAE@XZ)，该符号在函数 "private: void __thiscall FlyEdit::onImportExcel(void)" (?onImportExcel@FlyEdit@@AAEXXZ) 中被引用
+     1>flyedit.obj : error LNK2019: 无法解析的外部符号 "__declspec(dllimport) public: bool __thiscall QXlsx::Document::write(int,int,class QVariant const &,class QXlsx::Format const &)" (__imp_?write@Document@QXlsx@@QAE_NHHABVQVariant@@ABVFormat@2@@Z)，该符号在函数 "private: void __thiscall FlyEdit::onExportToExcel(void)" (?onExportToExcel@FlyEdit@@AAEXXZ) 中被引用
+     1>flyedit.obj : error LNK2019: 无法解析的外部符号 "__declspec(dllimport) public: class QVariant __thiscall QXlsx::Document::read(int,int)const " (__imp_?read@Document@QXlsx@@QBE?AVQVariant@@HH@Z)，该符号在函数 "private: void __thiscall FlyEdit::onImportExcel(void)" (?onImportExcel@FlyEdit@@AAEXXZ) 中被引用
+     1>flyedit.obj : error LNK2019: 无法解析的外部符号 "__declspec(dllimport) public: class QXlsx::CellRange __thiscall QXlsx::Document::dimension(void)const " (__imp_?dimension@Document@QXlsx@@QBE?AVCellRange@2@XZ)，该符号在函数 "private: void __thiscall FlyEdit::onImportExcel(void)" (?onImportExcel@FlyEdit@@AAEXXZ) 中被引用
+     1>flyedit.obj : error LNK2019: 无法解析的外部符号 "__declspec(dllimport) public: class QStringList __thiscall QXlsx::Document::sheetNames(void)const " (__imp_?sheetNames@Document@QXlsx@@QBE?AVQStringList@@XZ)，该符号在函数 "private: void __thiscall FlyEdit::onImportExcel(void)" (?onImportExcel@FlyEdit@@AAEXXZ) 中被引用
+     1>flyedit.obj : error LNK2019: 无法解析的外部符号 "__declspec(dllimport) public: bool __thiscall QXlsx::Document::addSheet(class QString const &,enum QXlsx::AbstractSheet::SheetType)" (__imp_?addSheet@Document@QXlsx@@QAE_NABVQString@@W4SheetType@AbstractSheet@2@@Z)，该符号在函数 "private: void __thiscall FlyEdit::onExportToExcel(void)" (?onExportToExcel@FlyEdit@@AAEXXZ) 中被引用
+     1>flyedit.obj : error LNK2019: 无法解析的外部符号 "__declspec(dllimport) public: bool __thiscall QXlsx::Document::selectSheet(class QString const &)" (__imp_?selectSheet@Document@QXlsx@@QAE_NABVQString@@@Z)，该符号在函数 "private: void __thiscall FlyEdit::onImportExcel(void)" (?onImportExcel@FlyEdit@@AAEXXZ) 中被引用
+     1>flyedit.obj : error LNK2019: 无法解析的外部符号 "__declspec(dllimport) public: bool __thiscall QXlsx::Document::deleteSheet(class QString const &)" (__imp_?deleteSheet@Document@QXlsx@@QAE_NABVQString@@@Z)，该符号在函数 "private: void __thiscall FlyEdit::onExportToExcel(void)" (?onExportToExcel@FlyEdit@@AAEXXZ) 中被引用
+     1>flyedit.obj : error LNK2019: 无法解析的外部符号 "__declspec(dllimport) public: bool __thiscall QXlsx::Document::save(void)const " (__imp_?save@Document@QXlsx@@QBE_NXZ)，该符号在函数 "private: void __thiscall FlyEdit::onExportToExcel(void)" (?onExportToExcel@FlyEdit@@AAEXXZ) 中被引用
+     1>F:\工作201808_飞行包编辑\飞行包编辑_V0.0.2.180809_Alpha\FlyEdit20180811\FlyEdit4_FaBu\Win32\Debug\\FlyEdit.exe : fatal error LNK1120: 15 个无法解析的外部命令
+     1>已完成生成项目“F:\工作201808_飞行包编辑\飞行包编辑_V0.0.2.180809_Alpha\FlyEdit20180811\FlyEdit4_FaBu\FlyEdit\FlyEdit.vcxproj”(Build 个目标)的操作 - 失败。
+
+生成失败。
+
+已用时间 00:00:25.90

@@ -1,0 +1,32 @@
+﻿生成启动时间为 2018/8/23 16:57:06。
+     1>项目“F:\工作201808_飞行包编辑\飞行包编辑_V0.0.2.180809_Alpha\FlyEdit20180811\FlyEdit4_FaBu\FlyEdit\FlyEdit.vcxproj”在节点 2 上(Rebuild 个目标)。
+     1>CustomBuild:
+         Moc'ing flyedit.h...
+         Uic'ing flyedit.ui...
+         Moc'ing qcustomplot.h...
+         Rcc'ing flyedit.qrc...
+     1>RCC : warning : No resources in 'F:\宸ヤ綔201808_椋炶鍖呯紪杈慭椋炶鍖呯紪杈慱V0.0.2.180809_Alpha\FlyEdit20180811\FlyEdit4_FaBu\FlyEdit\flyedit.qrc'.
+         
+       ClCompile:
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /I.\GeneratedFiles /I. /IC:\Qt\Qt5.7.0\5.7\msvc2013\include /I.\GeneratedFiles\Release /IC:\Qt\Qt5.7.0\5.7\msvc2013\include\QtCore /IC:\Qt\Qt5.7.0\5.7\msvc2013\include\QtGui /IC:\Qt\Qt5.7.0\5.7\msvc2013\include\QtSql /IC:\Qt\Qt5.7.0\5.7\msvc2013\include\QtWidgets /IC:\Qt\Qt5.7.0\5.7\msvc2013\include\QtPrintSupport /nologo /W1 /WX- /O2 /Oy- /D UNICODE /D WIN32 /D WIN64 /D QT_DLL /D QT_NO_DEBUG /D NDEBUG /D QT_CORE_LIB /D QT_GUI_LIB /D QT_SQL_LIB /D QT_WIDGETS_LIB /D QT_PRINTSUPPORT_LIB /Gm- /EHsc /MD /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Release\\" /Fd"Release\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt flyedit.cpp GeneratedFiles\Release\moc_flyedit.cpp GeneratedFiles\Release\moc_qcustomplot.cpp main.cpp qcustomplot.cpp
+         flyedit.cpp
+         moc_flyedit.cpp
+         moc_qcustomplot.cpp
+         main.cpp
+         qcustomplot.cpp
+         正在生成代码...
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /I.\GeneratedFiles /I. /IC:\Qt\Qt5.7.0\5.7\msvc2013\include /I.\GeneratedFiles\Release /IC:\Qt\Qt5.7.0\5.7\msvc2013\include\QtCore /IC:\Qt\Qt5.7.0\5.7\msvc2013\include\QtGui /IC:\Qt\Qt5.7.0\5.7\msvc2013\include\QtSql /IC:\Qt\Qt5.7.0\5.7\msvc2013\include\QtWidgets /IC:\Qt\Qt5.7.0\5.7\msvc2013\include\QtPrintSupport /nologo /W1 /WX- /O2 /Oy- /D UNICODE /D WIN32 /D WIN64 /D QT_DLL /D QT_NO_DEBUG /D NDEBUG /D QT_CORE_LIB /D QT_GUI_LIB /D QT_SQL_LIB /D QT_WIDGETS_LIB /D QT_PRINTSUPPORT_LIB /Gm- /EHsc /MD /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Release\\" /Fd"Release\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt GeneratedFiles\qrc_flyedit.cpp
+         qrc_flyedit.cpp
+       Link:
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"F:\工作201808_飞行包编辑\飞行包编辑_V0.0.2.180809_Alpha\FlyEdit20180811\FlyEdit4_FaBu\Win32\Release\\FlyEdit.exe" /NOLOGO /LIBPATH:C:\Qt\Qt5.7.0\5.7\msvc2013\lib qtmain.lib Qt5Core.lib Qt5Gui.lib Qt5Sql.lib Qt5Widgets.lib Qt5Xlsx.lib Qt5PrintSupport.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /PDB:"F:\工作201808_飞行包编辑\飞行包编辑_V0.0.2.180809_Alpha\FlyEdit20180811\FlyEdit4_FaBu\Win32\Release\FlyEdit.pdb" /SUBSYSTEM:WINDOWS /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"F:\工作201808_飞行包编辑\飞行包编辑_V0.0.2.180809_Alpha\FlyEdit20180811\FlyEdit4_FaBu\Win32\Release\FlyEdit.lib" /MACHINE:X86 /SAFESEH Release\flyedit.obj
+         Release\qrc_flyedit.obj
+         Release\moc_flyedit.obj
+         Release\moc_qcustomplot.obj
+         Release\main.obj
+         Release\qcustomplot.obj
+         FlyEdit.vcxproj -> F:\工作201808_飞行包编辑\飞行包编辑_V0.0.2.180809_Alpha\FlyEdit20180811\FlyEdit4_FaBu\Win32\Release\FlyEdit.exe
+     1>已完成生成项目“F:\工作201808_飞行包编辑\飞行包编辑_V0.0.2.180809_Alpha\FlyEdit20180811\FlyEdit4_FaBu\FlyEdit\FlyEdit.vcxproj”(Rebuild 个目标)的操作。
+
+生成成功。
+
+已用时间 00:00:45.28
