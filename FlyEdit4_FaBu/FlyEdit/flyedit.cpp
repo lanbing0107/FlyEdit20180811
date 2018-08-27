@@ -50,7 +50,9 @@ FlyEdit::FlyEdit(QWidget *parent)
 	bool ok = m_db.open();
 	if (ok == false)
 	{
-		QMessageBox::warning(NULL, QStringLiteral("提示"), "数据库连接失败！", QMessageBox::Yes);
+		QString sqlError = m_db.lastError().text();
+		QMessageBox::warning(NULL, QStringLiteral("提示"), sqlError, QMessageBox::Yes);
+
 		return;
 	}
 	//---------------------------------------------------------//
