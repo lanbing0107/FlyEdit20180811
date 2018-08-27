@@ -1,0 +1,37 @@
+Qt5（VS2013平台开发）应用程序的发布
+https://blog.csdn.net/qq_17368865/article/details/79071339
+Qt5（VS2013平台开发）应用程序的发布
+2018年01月16日 09:57:28 阅读数：497更多
+个人分类： Qt
+版权声明：本文为博主原创文章，未经博主允许不得转载。	https://blog.csdn.net/qq_17368865/article/details/79071339
+当你用 VS2013 + Qt5 + VS addin开发一个Qt的应用程序之后，如何将此程序交给别人来使用呢？本文档即描述这个问题。
+
+第一步：
+
+需要准备好VS2013 的运行时dll，一共 6个文件如果你是VS2013，则在这个目录（C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\redist\x86\Microsoft.VC120.CRT）下找这3个文件：
+
+图1
+
+然后在目录C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\redist\Debug_NonRedist\x86\Microsoft.VC120.DebugCRT下找这2个文件：
+
+图2
+
+第二步：以Release编译
+用 VS2013打开你的Qt项目，以Release编译，执行菜单“生成|重新生成解决方案” 。
+
+图3
+
+第三步：交付
+将编译得到exe文件，连同以下文件交付给你的用户： 
+
+图4
+
+
+其中：imageformats和platforms是Qt运行的的插件，在这个目录下：C:\Qt\Qt5.5.1\5.5\msvc2013\plugins
+而上图以Qt5打头的6个文件是Qt的库，在目录C:\Qt\Qt5.5.1\5.5\msvc2013\bin可以找到。
+这样，把自己编写的应用程序和这些文件拷贝到别人的电脑上，也可以运行程序。
+最后再次说明：本Qt开发的环境为VS2013 + Qt5 + VS addin，其他平台如VS2012 + Qt5 + VS addin等等，笔者没有试过（但不代表不能成功），请注意！
+
+注： VS2012 
+编译出来的程序只能在 Win7 及以上系统上运行，如果你希望在WinXP这种老
+系统上运行，则请改用 VS2008 + Qt4.7.3 开发环境。
